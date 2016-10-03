@@ -121,15 +121,15 @@ exports.config = {
     },
 
     /**
-     * Base URL for the Cloudbreak.
-     * BASE_URL is environment variable.
+     * Host for the Cloudbreak.
+     * HOST is environment variable.
      */
-    baseUrl: process.env.BASE_URL,
+    baseUrl: "https://" + process.env.HOST + "/",
 
     onPrepare: function() {
         var currentURL;
 
-        console.log("The Base URL is: " + process.env.BASE_URL);
+        console.log("The Base URL is: " + "https://" + process.env.HOST + "/");
         console.log("The Username is: " + process.env.USERNAME);
         console.log("The Password is: " + process.env.PASSWORD);
         console.log("The SSH Key is: " + process.env.SSHKEY);

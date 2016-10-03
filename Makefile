@@ -21,7 +21,7 @@ run:
 				--rm \
 				--name uluwatu-e2e-runner \
 				--net=host \
-				-e BASE_URL=$(BASE_URL) \
+				-e HOST=$(HOST) \
 				-e USERNAME=$(USERNAME) \
 				-e PASSWORD=$(PASSWORD) \
 				-e AWS_ROLE_ARN=$(AWS_ROLE_ARN) \
@@ -35,7 +35,7 @@ run-regression:
 				--rm \
 				--name uluwatu-e2e-runner \
 				--net=host \
-				-e BASE_URL=$(BASE_URL) \
+				-e HOST=$(HOST) \
 				-e USERNAME=$(USERNAME) \
 				-e PASSWORD=$(PASSWORD) \
 				-e AWS_ROLE_ARN=$(AWS_ROLE_ARN) \
@@ -49,7 +49,7 @@ run-smoke:
 				--rm \
 				--name uluwatu-e2e-runner \
 				--net=host \
-				-e BASE_URL=$(BASE_URL) \
+				-e HOST=$(HOST) \
 				-e USERNAME=$(USERNAME) \
 				-e PASSWORD=$(PASSWORD) \
 				-e AWS_ROLE_ARN=$(AWS_ROLE_ARN) \
@@ -63,7 +63,7 @@ run-preprod:
 				--rm \
 				--name uluwatu-e2e-runner \
 				--net=host \
-				-e BASE_URL=$(BASE_URL) \
+				-e HOST=$(HOST) \
 				-e USERNAME=$(USERNAME) \
 				-e PASSWORD=$(PASSWORD) \
 				-e AWS_ROLE_ARN=$(AWS_ROLE_ARN) \
@@ -78,7 +78,7 @@ run-qa:
 				--rm \
 				--name uluwatu-e2e-runner \
 				--net=host \
-				-e BASE_URL=$(BASE_URL) \
+				-e HOST=$(HOST) \
 				-e USERNAME=$(USERNAME) \
 				-e PASSWORD=$(PASSWORD) \
 				-e AWS_ROLE_ARN=$(AWS_ROLE_ARN) \

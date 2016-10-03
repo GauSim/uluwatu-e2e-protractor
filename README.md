@@ -14,10 +14,10 @@ Cloudbreak web application functional smoke test project.
 
 ## Prerequisites
 The following environment variables should be present for you with valid values:
-
-- BASE_URL
+- HOST
 - USERNAME
 - PASSWORD
+- AWS_ROLE_ARN
 - SSHKEY
 
 ### AWS
@@ -35,8 +35,8 @@ The following environment variables should be present for you with valid values:
 `bash_profile` to can run tests directly form IDEA with no issues.
 The file should contain the variables as:
 ```
-export BASE_URL=your.url
-launchctl setenv BASE_URL $BASE_URL
+export HOST=hostname
+launchctl setenv HOST $HOST
 export USERNAME=your@mail.address
 launchctl setenv USERNAME $USERNAME
 export PASSWORD=your.password
@@ -73,7 +73,7 @@ You can check all the needed information on the [Page Object Pattern page](/page
 
 1. Clone this repository in a local folder then open it.
 2. Provide valid and appropriate values for base test parameters in the [environment file](utils/testenv). The following variables should be set:
-     - BASE_URL=`https://pre-prod-accounts.sequenceiq.com/`
+     - HOST=`pre-prod-accounts.sequenceiq.com`
      - USERNAME=`testing@something.com`
      - PASSWORD=`password`
      - AWS_ROLE_ARN=`arn:aws:iam::1234567890:role/userrole`
@@ -88,7 +88,7 @@ You can check all the needed information on the [Page Object Pattern page](/page
 4. Execute the Protractor test configuration for ULUWATU in [Docker container](https://docs.docker.com/engine/installation/):
     ```
     docker run -it --rm --name uluwatu-e2e-runner --env-file utils/testenv -v $(PWD):/protractor/project hortonworks/docker-e2e-protractor e2e.conf.js --suite smoke
-    docker run -it --rm --name uluwatu-e2e-runner -e BASE_URL=$(BASE_URL) -e USERNAME=$(USERNAME) -e PASSWORD=$(PASSWORD) -e AWS_ROLE_ARN=$(PASSWORD) -e SSHKEY=$(SSHKEY) -v $(PWD):/protractor/project hortonworks/docker-e2e-protractor e2e.conf.js --suite regression
+    docker run -it --rm --name uluwatu-e2e-runner -e HOST=$(HOST) -e USERNAME=$(USERNAME) -e PASSWORD=$(PASSWORD) -e AWS_ROLE_ARN=$(PASSWORD) -e SSHKEY=$(SSHKEY) -v $(PWD):/protractor/project hortonworks/docker-e2e-protractor e2e.conf.js --suite regression
     ```
 
      - `uluwatu-e2e-runner` name of the new Docker container (created from `sequenceiq/protractor-runner` Docker image)
