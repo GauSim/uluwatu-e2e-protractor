@@ -85,6 +85,46 @@ CredentialModule.prototype = Object.create({}, {
     selectKeystone:                    { value: function (key) {
         return this.openstackcredentialForm.element(by.cssContainingText('select#keystoneVersion option', key)).click();
     }},
+    clickCredentialProviderTab:        { value: function (provider) {
+        var EC = protractor.ExpectedConditions;
+        var tabPage;
+        var credentialForm;
+
+        switch (provider) {
+            case 'AWS':
+                tabPage = this.awsTab;
+                credentialForm = this.awscredentialForm;
+                break;
+            case 'Azure':
+                tabPage = this.azureTab;
+                credentialForm = this.azurecredentialForm;
+                break;
+            case 'GCP':
+                tabPage = this.gcpTab;
+                credentialForm = this.gcpcredentialForm;
+                break;
+            case 'OpenStack':
+                tabPage = this.openstackTab;
+                credentialForm = this.openstackcredentialForm;
+                break;
+            default:
+                return this.throwError('Provider is not valid!');
+                break;
+        }
+
+        // We need to fix the GUI here. Something goes wrong with Angular here.
+        return browser.driver.wait(EC.elementToBeClickable(tabPage), 5000, provider +' tab page is NOT click able!').then(function() {
+            //console.log('Launch button is clicked 1st!');
+            return tabPage.click();
+        }).then(function() {
+            return browser.driver.wait(EC.visibilityOf(credentialForm), 5000, provider + ' tab has NOT clicked at 1st!').then(function() {
+                //console.log('Launch button has already clicked at 1st!');
+            }, function(err) {
+                //console.log('Launch button is clicked 2nd!');
+                return browser.driver.actions().click(tabPage).perform();
+            });
+        });
+    }},
     typeName:                          { value: function (provider, name) {
         switch (provider) {
             case 'AWS':
@@ -280,7 +320,7 @@ CredentialModule.prototype = Object.create({}, {
     createAWSCredential:               { value: function (name, description, iamRole, sshKey) {
         browser.waitForAngular();
         this.openCreatePanel();
-        this.awsTab.click();
+        this.clickCredentialProviderTab('AWS');
         this.typeName('AWS', name);
         this.typeDescription('AWS', description);
         this.typeIAMRole(iamRole);
@@ -291,7 +331,7 @@ CredentialModule.prototype = Object.create({}, {
     createAzureCredential:             { value: function (name, description, subscriptionID, appID, password, tenantID, sshKey) {
         browser.waitForAngular();
         this.openCreatePanel();
-        this.azureTab.click();
+        this.clickCredentialProviderTab('Azure');
         this.typeName('Azure', name);
         this.typeDescription('Azure', description);
         this.typeSubscriptionId(subscriptionID);
@@ -305,7 +345,7 @@ CredentialModule.prototype = Object.create({}, {
     createGCPCredential:               { value: function (name, description, projectID, accountEmail, p12KeyPath, sshKey) {
         browser.waitForAngular();
         this.openCreatePanel();
-        this.gcpTab.click();
+        this.clickCredentialProviderTab('GCP');
         this.typeName('GCP', newName);
         this.typeDescription('GCP', newDescription);
         this.typeProjectId(projectID);
@@ -318,7 +358,7 @@ CredentialModule.prototype = Object.create({}, {
     createOpenStackCredential:         { value: function (name, description, user, password, tenant, endpoint, apiFacing, sshKey) {
         browser.waitForAngular();
         this.openCreatePanel();
-        this.openstackTab.click();
+        this.clickCredentialProviderTab('OpenStack');
         this.selectKeystone('v2');
         this.typeName('OpenStack', name);
         this.typeDescription('OpenStack', description);

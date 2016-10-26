@@ -31,6 +31,9 @@ ClusterModule.prototype = Object.create({}, {
     selectRegion:                      { value:  function (name) {
         return this.clustercreateForm.element(by.cssContainingText('option', name)).click();
     }},
+    selectAvailabilityZone:            { value:  function (name) {
+        return this.clustercreateForm.element(by.cssContainingText('option', name)).click();
+    }},
     clickSetupNetworkSecurity:         { value: function () {
         return this.securityButton.click().then(function() {
             return browser.driver.wait(function() {
@@ -562,9 +565,10 @@ ClusterModule.prototype = Object.create({}, {
         this.clickReviewAndLaunch();
         this.LaunchCluster();
     }},
-    createNewOpenStackCluster:         { value: function (clusterName, regionName, networkName, securityGroup, blueprintName) {
+    createNewOpenStackCluster:         { value: function (clusterName, regionName, zoneName, networkName, securityGroup, blueprintName) {
         this.typeName(clusterName);
         this.selectRegion(regionName);
+        this.selectAvailabilityZone(zoneName);
         this.clickSetupNetworkSecurity();
 
         this.selectNetwork(networkName);

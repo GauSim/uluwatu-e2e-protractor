@@ -10,7 +10,8 @@ describe('Testing a new OpenStack', function () {
     var credentialOSName = 'autotest-eng-cred-' + browser.params.nameTag;
     var blueprintOSName = 'autotest-scaling-' + browser.params.nameTag;
     var clusterOSName = 'autotest-os-cls-' + browser.params.nameTag;
-    var regionOSName = 'local';
+    var regionOSName = 'RegionOne';
+    var availabilityZoneName = 'nova';
     var networkOSName = 'autotest-eng-net-' + browser.params.nameTag;
     var securityGroup = 'all-services-port';
 
@@ -29,7 +30,7 @@ describe('Testing a new OpenStack', function () {
 
         it('the new cluster should be installed', function () {
             expect(basePage.getSelectedCredential()).toEqual(credentialOSName);
-            expect(basePage.createNewOSCluster(clusterOSName, regionOSName, networkOSName, securityGroup, blueprintOSName)).toBeTruthy();
+            expect(basePage.createNewOSCluster(clusterOSName, regionOSName, availabilityZoneName, networkOSName, securityGroup, blueprintOSName)).toBeTruthy();
             expect(basePage.isClusterInstalling()).toBeTruthy();
         });
         it('the new cluster should be launched', function (done) {
