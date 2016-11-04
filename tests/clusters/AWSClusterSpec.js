@@ -14,7 +14,7 @@ describe('Testing a new AWS', function () {
     var networkAWSName = 'default-aws-network';
     var securityGroup = 'all-services-port';
 
-    describe('cluster creation where', function () {
+    describe('cluster creation with recipe where', function () {
         basePage = new BasePage();
         dashboardPage = new DashboardPage();
 

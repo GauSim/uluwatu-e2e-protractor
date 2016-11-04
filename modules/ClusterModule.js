@@ -61,6 +61,12 @@ ClusterModule.prototype = Object.create({}, {
             return select.element(by.cssContainingText('option', name)).click();
         });
     }},
+    isBlueprintSelected:               { value: function (name) {
+        browser.waitForAngular();
+        return browser.driver.wait(function() {
+            return element(by.cssContainingText('div#create-cluster-panel-collapse option', name)).isSelected();
+        }, 20000, 'Cannot select ' + name + ' blueprint!');
+    }},
     selectAmbariServer:                   { value: function () {
         var EC = protractor.ExpectedConditions;
         var serverButton = element(by.css('input#template-ambari-0'));
@@ -76,11 +82,8 @@ ClusterModule.prototype = Object.create({}, {
             });
         });
     }},
-    isBlueprintSelected:               { value: function (name) {
-        browser.waitForAngular();
-        return browser.driver.wait(function() {
-            return element(by.cssContainingText('div#create-cluster-panel-collapse option', name)).isSelected();
-        }, 20000, 'Cannot select ' + name + ' blueprint!');
+    selectRecipe:                         { value: function () {
+        return element(by.css('div#recipenames0 input')).click();
     }},
     clickReviewAndLaunch:              { value: function () {
         var EC = protractor.ExpectedConditions;
@@ -562,6 +565,7 @@ ClusterModule.prototype = Object.create({}, {
         this.selectBlueprint(blueprintName);
         this.selectSecurityGroup(securityGroup);
         this.selectAmbariServer();
+        this.selectRecipe();
         this.clickReviewAndLaunch();
         this.LaunchCluster();
     }},
@@ -577,6 +581,7 @@ ClusterModule.prototype = Object.create({}, {
         this.selectBlueprint(blueprintName);
         this.selectSecurityGroup(securityGroup);
         this.selectAmbariServer();
+        this.selectRecipe();
         this.clickReviewAndLaunch();
         this.LaunchCluster();
     }}

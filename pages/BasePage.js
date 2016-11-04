@@ -189,6 +189,67 @@ BasePage.prototype  = Object.create({}, {
     isClusterDownScaled:                        { value: function ()  {
         var waitForUtils = new WaitForUtils();
         return waitForUtils.waitForClusterScaleDown();
+    }},
+    waitForUserDropDownMenu:                    { value: function(user) {
+        var waitForUtils = new WaitForUtils();
+
+        var EC = protractor.ExpectedConditions;
+        var dropDownMenu = element(by.cssContainingText('li.dropdown a', user));
+
+        waitForUtils.waitForOverlay();
+
+        return browser.driver.wait(EC.elementToBeClickable(dropDownMenu), 10000, 'User drop-down is NOT click able!').then(function () {
+            return dropDownMenu.isDisplayed().then(function(displayed) {
+                return displayed;
+            });
+        }, function (err) {
+            console.log(err);
+            return false;
+        });
+    }},
+    clickLogout:                                { value: function(user) {
+        var EC = protractor.ExpectedConditions;
+        var logOutLink = element(by.css('a[href="/logout"]'));
+
+        return browser.driver.actions().click(element(by.cssContainingText('li.dropdown a', user))).perform().then(function() {
+            return browser.driver.wait(EC.visibilityOf(logOutLink), 10000, 'Log out link is NOT visible!').then(function () {
+                return logOutLink.click();
+            }, function (err) {
+                console.log(err);
+            });
+        }, function (err) {
+            console.log(err);
+        });
+    }},
+    isLoggedOut:                                { value: function() {
+        browser.waitForAngular();
+
+        return browser.driver.wait(function() {
+            return browser.driver.getCurrentUrl().then(function(url) {
+                return /logout=true/g.test(url);
+            });
+        }, 10000, 'Logged out page has not loaded in!');
+    }},
+    logOut:                                     { value: function (user)  {
+        this.waitForUserDropDownMenu(user);
+        this.clickLogout(user);
+        return this.isLoggedOut();
+    }},
+    isUserLoggedIn:                             { value: function(user) {
+        var EC = protractor.ExpectedConditions;
+        var loggedInUser = element(by.cssContainingText('li.dropdown a', user));
+
+        return browser.driver.wait(EC.visibilityOf(loggedInUser), 20000,'User has NOT signed in!').then(function() {
+            return loggedInUser.isPresent().then(function(displayed) {
+                return displayed;
+            }, function(dis_err) {
+                console.log(dis_err);
+                return false;
+            })
+        }, function(wai_err) {
+            console.log(wai_err);
+            return false;
+        });
     }}
 });
 module.exports = BasePage;

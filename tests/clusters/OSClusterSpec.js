@@ -15,7 +15,7 @@ describe('Testing a new OpenStack', function () {
     var networkOSName = 'autotest-eng-net-' + browser.params.nameTag;
     var securityGroup = 'all-services-port';
 
-    describe('a new OpenStack cluster creation where', function () {
+    describe('cluster creation with recipe where', function () {
         basePage = new BasePage();
         dashboardPage = new DashboardPage();
 

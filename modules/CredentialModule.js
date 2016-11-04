@@ -166,16 +166,16 @@ CredentialModule.prototype = Object.create({}, {
     typeSSHKey:                        { value: function (provider, key) {
         switch (provider) {
             case 'AWS':
-                return this.awssshBox.sendKeys('ssh-rsa ' + key);
+                return this.awssshBox.sendKeys(key);
                 break;
             case 'Azure':
-                return this.azuresshBox.sendKeys('ssh-rsa ' + key);
+                return this.azuresshBox.sendKeys(key);
                 break;
             case 'GCP':
-                return this.gcpsshBox.sendKeys('ssh-rsa ' + key);
+                return this.gcpsshBox.sendKeys(key);
                 break;
             case 'OpenStack':
-                return this.openstacksshBox.sendKeys('ssh-rsa ' + key);
+                return this.openstacksshBox.sendKeys(key);
                 break;
             default:
                 return this.throwError('Provider is not valid!');

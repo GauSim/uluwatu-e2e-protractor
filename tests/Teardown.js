@@ -12,6 +12,7 @@ describe('Testing', function () {
     var blueprintOSName = 'autotest-scaling-' + browser.params.nameTag;
     var templateOSName = 'autotest-eng-tmp-' + browser.params.nameTag;
     var networkOSName = 'autotest-eng-net-' + browser.params.nameTag;
+    var recipeName = 'autotest-sample-' + browser.params.nameTag;
 
     describe('teardown', function () {
         basePage = new BasePage();
@@ -25,6 +26,7 @@ describe('Testing', function () {
             expect(dashboardPage.deleteNetwork(networkOSName)).toBeTruthy();
             expect(dashboardPage.deleteCredential(credentialAWSName)).toBeTruthy();
             expect(dashboardPage.deleteCredential(credentialOSName)).toBeTruthy();
+            expect(dashboardPage.deleteRecipe(recipeName)).toBeTruthy();
             done();
         }, 40 * 60000);
     });

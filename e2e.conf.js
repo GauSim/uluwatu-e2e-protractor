@@ -31,6 +31,8 @@ exports.config = {
                '--disable-web-security'
             ]
         },
+        // this takes seconds
+        idleTimeout: 120,
         locationContextEnabled: true,
         javascriptEnabled: true,
         acceptSslCerts: true,
@@ -52,6 +54,7 @@ exports.config = {
         'tests/credentials/OSCredentialSpec.js',
         'tests/templates/OSTemplateSpec.js',
         'tests/networks/OSNetworkSpec.js',
+        'tests/recipes/SampleRecipeSpec.js',
         'tests/clusters/AWSClusterSpec.js',
         'tests/clusters/OSClusterSpec.js',
         'tests/Teardown.js'
@@ -66,6 +69,7 @@ exports.config = {
             'tests/LoginSpec.js',
             'tests/blueprints/AWSBlueprintSpec.js',
             'tests/credentials/AWSCredentialSpec.js',
+            'tests/recipes/SampleRecipeSpec.js',
             'tests/clusters/AWSClusterSpec.js',
             'tests/Teardown.js'
         ],
@@ -77,6 +81,7 @@ exports.config = {
             'tests/credentials/OSCredentialSpec.js',
             'tests/templates/OSTemplateSpec.js',
             'tests/networks/OSNetworkSpec.js',
+            'tests/recipes/SampleRecipeSpec.js',
             'tests/Teardown.js'
         ],
         regression: [
@@ -87,6 +92,7 @@ exports.config = {
             'tests/credentials/OSCredentialSpec.js',
             'tests/templates/OSTemplateSpec.js',
             'tests/networks/OSNetworkSpec.js',
+            'tests/recipes/SampleRecipeSpec.js',
             'tests/clusters/AWSClusterSpec.js',
             'tests/clusters/OSClusterSpec.js',
             'tests/Teardown.js'

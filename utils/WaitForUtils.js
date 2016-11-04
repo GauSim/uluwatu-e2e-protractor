@@ -27,6 +27,22 @@ WaitForUtils.prototype = Object.create({}, {
             return items.length > 0;
         });
     }},
+    waitForOverlay:                  {   value:  function() {
+        var EC = protractor.ExpectedConditions;
+        var loading = element(by.css('div.block-ui-overlay'));
+
+        browser.waitForAngular();
+
+        return browser.driver.wait(EC.invisibilityOf(loading), 20000,'Loading is visible!').then(function() {
+            return loading.isDisplayed().then(function(displayed) {
+                return !displayed;
+            }, function(dis_err) {
+                return true;
+            })
+        }, function(wai_err) {
+            return console.log(wai_err);
+        });
+    }},
     checkingNotifications:             { value: function (notificationArray, errorMessagesArray)  {
         var EC = protractor.ExpectedConditions;
         var notificationBar = element(by.css('input#notification-n-filtering'));
