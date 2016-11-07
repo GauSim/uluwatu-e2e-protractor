@@ -11,7 +11,7 @@ run-with-envfile:
 				--rm \
 				--name uluwatu-e2e-runner \
 				--net=host \
-				--env-file $(ENVFILE) \
+				--env-file utils/testenv \
 				-v $(PWD):/protractor/project \
 				hortonworks/docker-e2e-protractor $(TESTCONF)
 

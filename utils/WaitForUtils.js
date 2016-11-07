@@ -56,13 +56,19 @@ WaitForUtils.prototype = Object.create({}, {
                         console.log(message);
                     });
                     return isDisplayed;
-                }, function(err) {
-                    console.log('Expected state notification is not present!');
+                }, function(display_err) {
+                    console.log('Expected "' + notification + '" notification is not visible!');
                     notificationBar.getAttribute('value').then(function(message){
                         console.log(message);
                     });
                     return false;
                 });
+            }, function(wait_err) {
+                console.log('Expected "' + notification + '" notification is not present!');
+                notificationBar.getAttribute('value').then(function(message){
+                    console.log(message);
+                });
+                return false;
             });
         });
     }},
