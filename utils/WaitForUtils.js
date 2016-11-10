@@ -93,7 +93,7 @@ WaitForUtils.prototype = Object.create({}, {
             });
         }, function(err) {
             console.log('The notification has NOT generated!');
-            return err;
+            return false;
         });
     }},
     waitForClusterRemove:        { value: function ()  {
@@ -114,7 +114,7 @@ WaitForUtils.prototype = Object.create({}, {
             });
         }, function(err) {
             console.log('The notification has NOT generated!');
-            return err;
+            return false;
         });
     }},
     waitForClusterStop:        { value: function ()  {
@@ -135,7 +135,7 @@ WaitForUtils.prototype = Object.create({}, {
             });
         }, function(err) {
             console.log('The notification has NOT generated!');
-            return err;
+            return false;
         });
     }},
     waitForClusterStart:             { value: function ()  {
@@ -156,7 +156,7 @@ WaitForUtils.prototype = Object.create({}, {
             });
         }, function(err) {
             console.log('The notification has NOT generated!');
-            return err;
+            return false;
         });
     }},
     waitForClusterScaleUp:           { value: function ()  {
@@ -177,7 +177,7 @@ WaitForUtils.prototype = Object.create({}, {
             });
         }, function(err) {
             console.log('The notification has NOT generated!');
-            return err;
+            return false;
         });
     }},
     waitForClusterScaleDown:           { value: function ()  {
@@ -198,7 +198,7 @@ WaitForUtils.prototype = Object.create({}, {
             });
         }, function(err) {
             console.log('The notification has NOT generated!');
-            return err;
+            return false;
         });
     }}
 });

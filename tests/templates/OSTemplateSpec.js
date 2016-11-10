@@ -8,7 +8,6 @@ describe('Testing OpenStack template creation', function () {
     var newDescription = 'autotest';
     var newOSInstanceType = 'm1.medium';
     var newAttachedVolumes = '1';
-    var newAWSVolumeSize = '100';
     var newOSVolumeSize = '10';
 
     describe('with ' + newOSName + ' template', function () {
