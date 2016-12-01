@@ -14,6 +14,7 @@ describe('Testing a new OpenStack', function () {
     var availabilityZoneName = 'nova';
     var networkOSName = 'autotest-eng-net-' + browser.params.nameTag;
     var securityGroup = 'all-services-port';
+    var recipeName = 'autotest-sample-' + browser.params.nameTag + '-post';
 
     describe('cluster creation with recipe where', function () {
         basePage = new BasePage();
@@ -30,7 +31,7 @@ describe('Testing a new OpenStack', function () {
 
         it('the new cluster should be installed', function () {
             expect(basePage.getSelectedCredential()).toEqual(credentialOSName);
-            expect(basePage.createNewOSCluster(clusterOSName, regionOSName, availabilityZoneName, networkOSName, securityGroup, blueprintOSName)).toBeTruthy();
+            expect(basePage.createNewOSCluster(clusterOSName, regionOSName, availabilityZoneName, networkOSName, securityGroup, blueprintOSName, recipeName)).toBeTruthy();
             expect(basePage.isClusterInstalling()).toBeTruthy();
         });
         it('the new cluster should be launched', function (done) {

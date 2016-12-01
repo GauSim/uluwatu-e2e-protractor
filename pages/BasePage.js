@@ -64,17 +64,17 @@ BasePage.prototype  = Object.create({}, {
             return message.length > 0;
         });
     }},
-    createNewAWSCluster:                        { value: function (name, region, network, securityGroup, blueprint)  {
+    createNewAWSCluster:                        { value: function (name, region, network, securityGroup, blueprint, recipe)  {
         var clusterModule = new ClusterModule();
         this.openClusterCreate();
-        clusterModule.createNewAWSCluster(name, region, network, securityGroup, blueprint);
+        clusterModule.createNewAWSCluster(name, region, network, securityGroup, blueprint, recipe);
         var widgetModule = new WidgetModule();
         return widgetModule.isClusterPresent(name);
     }},
-    createNewOSCluster:                        { value: function (name, region, zone, network, securityGroup, blueprint) {
+    createNewOSCluster:                        { value: function (name, region, zone, network, securityGroup, blueprint, recipe) {
         var clusterModule = new ClusterModule();
         this.openClusterCreate();
-        clusterModule.createNewOpenStackCluster(name, region, zone, network, securityGroup, blueprint);
+        clusterModule.createNewOpenStackCluster(name, region, zone, network, securityGroup, blueprint, recipe);
         var widgetModule = new WidgetModule();
         return widgetModule.isClusterPresent(name);
     }},

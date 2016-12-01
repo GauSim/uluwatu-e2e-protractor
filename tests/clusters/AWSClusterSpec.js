@@ -13,6 +13,7 @@ describe('Testing a new AWS', function () {
     var regionAWSName = 'EU (Ireland)';
     var networkAWSName = 'default-aws-network';
     var securityGroup = 'all-services-port';
+    var recipeName = 'autotest-sample-' + browser.params.nameTag + '-pre';
 
     describe('cluster creation with recipe where', function () {
         basePage = new BasePage();
@@ -29,7 +30,7 @@ describe('Testing a new AWS', function () {
 
         it('the new cluster should be installed', function () {
             expect(basePage.getSelectedCredential()).toEqual(credentialAWSName);
-            expect(basePage.createNewAWSCluster(clusterAWSName, regionAWSName, networkAWSName, securityGroup, blueprintAWSName)).toBeTruthy();
+            expect(basePage.createNewAWSCluster(clusterAWSName, regionAWSName, networkAWSName, securityGroup, blueprintAWSName, recipeName)).toBeTruthy();
             expect(basePage.isClusterInstalling()).toBeTruthy();
         });
         it('the new cluster should be launched', function (done) {

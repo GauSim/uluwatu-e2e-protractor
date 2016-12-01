@@ -82,8 +82,8 @@ ClusterModule.prototype = Object.create({}, {
             });
         });
     }},
-    selectRecipe:                         { value: function () {
-        return element(by.css('div#recipenames0 input')).click();
+    selectRecipe:                         { value: function (name) {
+        return element(by.cssContainingText('div#recipenames0 input[ng-model*="index_recipe.id"]', name)).click();
     }},
     clickReviewAndLaunch:              { value: function () {
         var EC = protractor.ExpectedConditions;
@@ -554,7 +554,7 @@ ClusterModule.prototype = Object.create({}, {
             });
         });
     }},
-    createNewAWSCluster:               { value: function (clusterName, regionName, networkName, securityGroup, blueprintName) {
+    createNewAWSCluster:               { value: function (clusterName, regionName, networkName, securityGroup, blueprintName, recipeName) {
         this.typeName(clusterName);
         this.selectRegion(regionName);
         this.clickSetupNetworkSecurity();
@@ -565,11 +565,11 @@ ClusterModule.prototype = Object.create({}, {
         this.selectBlueprint(blueprintName);
         this.selectSecurityGroup(securityGroup);
         this.selectAmbariServer();
-        this.selectRecipe();
+        this.selectRecipe(recipeName);
         this.clickReviewAndLaunch();
         this.LaunchCluster();
     }},
-    createNewOpenStackCluster:         { value: function (clusterName, regionName, zoneName, networkName, securityGroup, blueprintName) {
+    createNewOpenStackCluster:         { value: function (clusterName, regionName, zoneName, networkName, securityGroup, blueprintName, recipeName) {
         this.typeName(clusterName);
         this.selectRegion(regionName);
         this.selectAvailabilityZone(zoneName);
@@ -581,7 +581,7 @@ ClusterModule.prototype = Object.create({}, {
         this.selectBlueprint(blueprintName);
         this.selectSecurityGroup(securityGroup);
         this.selectAmbariServer();
-        this.selectRecipe();
+        this.selectRecipe(recipeName);
         this.clickReviewAndLaunch();
         this.LaunchCluster();
     }}
