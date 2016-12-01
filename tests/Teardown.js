@@ -3,7 +3,7 @@
 var BasePage = require('../pages/BasePage.js');
 var DashboardPage = require('../pages/DashboardPage.js');
 
-describe('Testing', function () {
+describe('Test teardown', function () {
     var basePage;
     var dashboardPage;
     var credentialAWSName = 'autotest-aws-cred-' + browser.params.nameTag;
@@ -12,22 +12,36 @@ describe('Testing', function () {
     var blueprintOSName = 'autotest-scaling-' + browser.params.nameTag;
     var templateOSName = 'autotest-eng-tmp-' + browser.params.nameTag;
     var networkOSName = 'autotest-eng-net-' + browser.params.nameTag;
-    var recipeName = 'autotest-sample-' + browser.params.nameTag;
+    var recipePreName = 'autotest-sample-' + browser.params.nameTag + '-pre';
+    var recipePostName = 'autotest-sample-' + browser.params.nameTag + '-post';
 
-    describe('teardown', function () {
+    describe('where', function () {
         basePage = new BasePage();
         dashboardPage = new DashboardPage();
 
-        it('should be success', function (done) {
-            jasmine.DEFAULT_TIMEOUT_INTERVAL = 60 * 60000;
+        it(blueprintAWSName + ' blueprint delete should be success', function () {
             expect(dashboardPage.deleteBlueprint(blueprintAWSName)).toBeTruthy();
+        });
+        it(blueprintOSName + ' blueprint delete should be success', function () {
             expect(dashboardPage.deleteBlueprint(blueprintOSName)).toBeTruthy();
+        });
+        it(templateOSName + ' template delete should be success', function () {
             expect(dashboardPage.deleteTemplate(templateOSName)).toBeTruthy();
+        });
+        it(networkOSName + ' network delete should be success', function () {
             expect(dashboardPage.deleteNetwork(networkOSName)).toBeTruthy();
+        });
+        it(credentialAWSName + ' credential delete should be success', function () {
             expect(dashboardPage.deleteCredential(credentialAWSName)).toBeTruthy();
+        });
+        it(credentialOSName + ' credential delete should be success', function () {
             expect(dashboardPage.deleteCredential(credentialOSName)).toBeTruthy();
-            expect(dashboardPage.deleteRecipe(recipeName)).toBeTruthy();
-            done();
-        }, 40 * 60000);
+        });
+        it(recipePreName + ' recipe delete should be success', function () {
+            expect(dashboardPage.deleteRecipe(recipePreName)).toBeTruthy();
+        });
+        it(recipePostName + ' recipe delete should be success', function () {
+            expect(dashboardPage.deleteRecipe(recipePostName)).toBeTruthy();
+        });
     });
 });
