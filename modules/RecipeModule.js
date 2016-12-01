@@ -9,9 +9,9 @@ RecipeModule.prototype = Object.create({}, {
     recipeForm:                    { get: function () {     return element(by.css('form[name*=recipeCreationForm]'));               }},
     nameBox:                       { get: function () {     return this.recipeForm.element(by.css('input#recipename'));             }},
     descriptionBox:                { get: function () {     return this.recipeForm.element(by.css('input#recipedescription'));      }},
-    typeSelect:                    { get: function () {     return this.recipeForm.element(by.css('select#recipetype'));            }},
-    preBox:                        { get: function () {     return this.recipeForm.element(by.css('textarea#preInstallScript'));    }},
-    postBox:                       { get: function () {     return this.recipeForm.element(by.css('textarea#postInstallScript'));   }},
+    contentTypeSelect:             { get: function () {     return this.recipeForm.element(by.css('select#recipeContentType'));     }},
+    recipeTypeSelect:              { get: function () {     return this.recipeForm.element(by.css('select#recipeType'));            }},
+    recipeContentBox:              { get: function () {     return this.recipeForm.element(by.css('textarea#recipeScript'));        }},
     createButton:                  { get: function () {     return this.recipeForm.element(by.css('a#createRecipe'));               }},
 
     typeName:                      { value: function (name)  {
@@ -20,8 +20,11 @@ RecipeModule.prototype = Object.create({}, {
     typeDescription:               { value: function (description) {
         return this.descriptionBox.sendKeys(description);
     }},
-    selectPlugin:                  { value: function (name) {
-        return this.typeSelect.element(by.cssContainingText('option', name)).click();
+    selectContentType:             { value: function (name) {
+        return this.contentTypeSelect.element(by.cssContainingText('option', name)).click();
+    }},
+    selectRecipeType:              { value: function (name) {
+        return this.recipeTypeSelect.element(by.cssContainingText('option', name)).click();
     }},
     deleteRecipe:                  { value: function (name) {
         var notificationBar = element(by.css('input#notification-n-filtering'));
@@ -51,13 +54,10 @@ RecipeModule.prototype = Object.create({}, {
             return true;
         });
     }},
-    typePreScript:                 { value: function (script) {
-        return this.preBox.sendKeys(script);
+    typeScript:                    { value: function (script) {
+        return this.recipeContentBox.sendKeys(script);
     }},
-    typePostScript:                { value: function (script) {
-        return this.postBox.sendKeys(script);
-    }},
-    createRecipe:                  { value: function (name, description, preScript, postScript) {
+    createRecipe:                  { value: function (name, description, content, script) {
         browser.waitForAngular();
         var EC = protractor.ExpectedConditions;
         var newRecipe = element(by.cssContainingText('div>h5>a', name));
@@ -66,9 +66,9 @@ RecipeModule.prototype = Object.create({}, {
         this.newrecipeButton.click();
         this.typeName(name);
         this.typeDescription(description);
-        this.selectPlugin('Script');
-        this.typePreScript(preScript);
-        this.typePostScript(postScript);
+        this.selectContentType('Script');
+        this.selectRecipeType(script);
+        this.typeScript(content);
         this.createButton.click().then(function () {
             browser.waitForAngular();
             return browser.driver.wait(EC.visibilityOf(newRecipe), 20000, 'The ' + name + ' recipe has NOT created!').then(function() {

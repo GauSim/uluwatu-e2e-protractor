@@ -21,8 +21,14 @@ describe('Testing sample recipe creation', function () {
             });
         });
 
-        it('Create new recipe', function () {
-            dashboardPage.createRecipe(newName, newDescription, newPre, newPost);
+        it('Create new PRE recipe', function () {
+            dashboardPage.createRecipe(newName + '-pre', newDescription, newPre, 'PRE');
+            dashboardPage.getBadgeValue(5).then(function (value) {
+                expect(value).toBeGreaterThan(defaultRecipes);
+            });
+        });
+        it('Create new POST recipe', function () {
+            dashboardPage.createRecipe(newName + '-post', newDescription, newPost, 'POST');
             dashboardPage.getBadgeValue(5).then(function (value) {
                 expect(value).toBeGreaterThan(defaultRecipes);
             });

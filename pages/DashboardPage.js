@@ -169,10 +169,10 @@ DashboardPage.prototype = Object.create({}, {
         var recipeModule = new RecipeModule();
         return recipeModule.deleteRecipe(name);
     }},
-    createRecipe:                           { value: function (name, description, preScript, postScript) {
+    createRecipe:                           { value: function (name, description, content, scriptType) {
         this.expandRecipes();
         var recipeModule = new RecipeModule();
-        return recipeModule.createRecipe(name, description, preScript, postScript);
+        return recipeModule.createRecipe(name, description, content, scriptType);
     }}
 });
 
