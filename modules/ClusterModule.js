@@ -83,7 +83,10 @@ ClusterModule.prototype = Object.create({}, {
         });
     }},
     selectRecipe:                         { value: function (name) {
-        return element(by.cssContainingText('div#recipenames0 input[ng-model*="index_recipe.id"]', name)).click();
+        // https://hortonworks.jira.com/browse/BUG-69942
+        var firstRecipe = element.all(by.css('div#recipenames0 input')).first();
+
+        return firstRecipe.click();
     }},
     clickReviewAndLaunch:              { value: function () {
         var EC = protractor.ExpectedConditions;
