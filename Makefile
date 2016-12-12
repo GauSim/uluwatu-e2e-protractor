@@ -41,7 +41,7 @@ run-regression:
 				-e AWS_ROLE_ARN=$(AWS_ROLE_ARN) \
 				-e SSHKEY=$(SSHKEY) \
 				-v $(PWD):/protractor/project \
-				hortonworks/docker-e2e-protractor $(TESTCONF) --suite regression
+				hortonworks/docker-e2e-protractor $(TESTCONF) --troubleshoot --suite regression
 
 run-smoke:
 				docker run -it \
@@ -55,7 +55,7 @@ run-smoke:
 				-e AWS_ROLE_ARN=$(AWS_ROLE_ARN) \
 				-e SSHKEY=$(SSHKEY) \
 				-v $(PWD):/protractor/project \
-				hortonworks/docker-e2e-protractor $(TESTCONF) --suite smoke
+				hortonworks/docker-e2e-protractor $(TESTCONF) --troubleshoot --suite smoke
 
 run-preprod:
 				docker run -i \
