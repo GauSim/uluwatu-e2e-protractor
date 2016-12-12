@@ -37,6 +37,7 @@ exports.config = {
         javascriptEnabled: true,
         acceptSslCerts: true,
         trustAllSSLCertificates: true,
+        ignoreUncaughtExceptions: true,
         handlesAlerts: true,
         loggingPrefs: { browser: 'SEVERE', driver: 'ALL' }
     },
