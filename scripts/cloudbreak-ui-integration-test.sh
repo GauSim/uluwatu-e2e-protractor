@@ -41,7 +41,7 @@ else
     --env-file $ENVFILE \
     -v $WORKSPACE:/protractor/project \
     -v /dev/shm:/dev/shm \
-    hortonworks/docker-e2e-protractor e2e.conf.js --suite $TEST_SUITE
+    hortonworks/docker-e2e-protractor e2e.conf.js --troubleshoot --suite $TEST_SUITE
     RESULT=$?
 fi
 
