@@ -13,7 +13,7 @@ var LoggedOutPage = function () {
 LoggedOutPage.prototype  = Object.create({}, {
     emailBox:                     {   get:    function() { return element(by.css('input#email'));                 }},
     passwordBox:                  {   get:    function() { return element(by.css('input#password'));              }},
-    logInButton:                  {   get:    function() { return element(by.css('a#login-btn'));                 }},
+    logInButton:                  {   get:    function() { return element(by.css('button#login-btn'));            }},
 
     reLogIn:                      {   value:  function(loginUser, loginPassword) {
         var email = this.emailBox;
@@ -55,7 +55,7 @@ LoggedOutPage.prototype  = Object.create({}, {
     }},
     isUserLoggedOut:               {   value:  function() {
         var EC = protractor.ExpectedConditions;
-        var loginTitle = element(by.cssContainingText('h1#panel-title', 'Login'));
+        var loginTitle = element(by.cssContainingText('h1.panel-title', 'Login'));
 
         return browser.driver.wait(EC.visibilityOf(loginTitle), 5000,'User has NOT signed out!').then(function() {
             return loginTitle.isDisplayed().then(function(displayed) {
