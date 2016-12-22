@@ -4,6 +4,9 @@ var BasePage = require('../../pages/BasePage.js');
 var DashboardPage = require('../../pages/DashboardPage.js');
 var originalJasmineTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
 
+var fs = require('fs');
+var exec = require('node-ssh-exec');
+
 describe('Testing a new AWS', function () {
     var basePage;
     var dashboardPage;
@@ -41,6 +44,32 @@ describe('Testing a new AWS', function () {
         it('the new Cluster Details should be available', function () {
             expect(basePage.isClusterDetailsControllers(clusterAWSName)).toBeTruthy();
         });
+
+        it('the (Pre-install) script should be executed on nodes', function (done) {
+            jasmine.DEFAULT_TIMEOUT_INTERVAL = 10 * 10000;
+            basePage.getClusterPublicIPs(clusterAWSName).then(function (ips) {
+                ips.forEach(function (ip, index) {
+                    console.log('SSH Username: ' + process.env.CLOUDBREAK_CLOUDBREAK_SSH_USER);
+                    console.log('SSH Key Path: ' + process.env.SSH_KEY_PATH);
+
+                    var config = {
+                        host: ip,
+                        username: process.env.CLOUDBREAK_CLOUDBREAK_SSH_USER,
+                        privateKey: fs.readFileSync(process.env.SSH_KEY_PATH)
+                    };
+                    var command = '[[ -f /pre-install ]] && echo true || echo false';
+
+                    exec(config, command, function (error, response) {
+                        if (error) {
+                            throw error;
+                        }
+                        console.log('ip: ' + ip + '; index: ' + index + '; result: ' + response);
+                        expect(response).toContain('true');
+                        done();
+                    })
+                });
+            });
+        }, 4 * 10000);
     });
 
     describe('new AWS cluster operations', function () {

@@ -133,6 +133,8 @@ exports.config = {
         console.log("The Username is: " + process.env.USERNAME);
         console.log("The Password is: " + process.env.PASSWORD);
         console.log("The SSH Key is: " + process.env.SSHKEY);
+        console.log("SSH Username: " + process.env.CLOUDBREAK_CLOUDBREAK_SSH_USER);
+        console.log("SSH Key Path: " + process.env.SSH_KEY_PATH);
         console.log("The Test Suite: " + process.env.TEST_SUITE);
 
         // WebDriver general settings for browsers.

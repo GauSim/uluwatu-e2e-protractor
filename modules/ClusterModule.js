@@ -84,9 +84,14 @@ ClusterModule.prototype = Object.create({}, {
     }},
     selectRecipe:                         { value: function (name) {
         // https://hortonworks.jira.com/browse/BUG-69942
-        var firstRecipe = element.all(by.css('div#recipenames0 input')).first();
+        var nodeRecipes = element.all(by.css('input[name="' + name + '"]'));
 
-        return firstRecipe.click();
+        element.all(by.css('input[name="' + name + '"]')).each(function(elem, index) {
+            elem.getText().then(function(text) {
+                console.log('Select the ' + text + ' ' + index + ' recipe.');
+            });
+            return elem.click();
+        });
     }},
     clickReviewAndLaunch:              { value: function () {
         var EC = protractor.ExpectedConditions;
@@ -556,6 +561,41 @@ ClusterModule.prototype = Object.create({}, {
                 return false;
             });
         });
+    }},
+    expandNodes:                        { value: function () {
+        var EC = protractor.ExpectedConditions;
+        var expandNodesButton = element(by.cssContainingText('a', 'Nodes'));
+        var publicIP = element.all(by.css('table#metadataTable tr>td[data-title="\'public IP\'"]')).first();
+
+        return browser.driver.wait(EC.elementToBeClickable(expandNodesButton), 10000, 'Expand Nodes button is NOT click able!').then(function() {
+            return expandNodesButton.click();
+        }).then(function() {
+            return browser.driver.wait(EC.visibilityOf(publicIP), 10000,'Expand Nodes button has NOT clicked at 1st!').then(function() {
+
+            }, function(err) {
+                return browser.driver.actions().click(expandNodesButton).perform();
+            });
+        });
+    }},
+    getPublicIPs:                    { value: function () {
+        var EC = protractor.ExpectedConditions;
+        var publicIP = element.all(by.css('table#metadataTable tr>td[data-title="\'public IP\'"]')).first();
+
+        return browser.driver.wait(EC.visibilityOf(publicIP), 10000, 'Public IPs are NOT visible!').then(function() {
+            return publicIP.isDisplayed().then(function (displayed) {
+                return displayed;
+            });
+        }).then(function() {
+            return element.all(by.css('table#metadataTable tr>td[data-title="\'public IP\'"]')).map(function (publicIPs) {
+                return publicIPs.getText().then(function (text) {
+                    return text;
+                });
+            });
+        });
+    }},
+    getAllPublicIPs:                    { value: function () {
+        this.expandNodes();
+        return this.getPublicIPs();
     }},
     createNewAWSCluster:               { value: function (clusterName, regionName, networkName, securityGroup, blueprintName, recipeName) {
         this.typeName(clusterName);

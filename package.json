@@ -18,11 +18,17 @@
     "jstransformer": "^1.0.0"
   },
   "devDependencies": {
+    "file-system": "^2.2.2",
     "jasmine-allure-reporter": "^1.0.1",
+    "jasmine-expect": "^3.0.1",
     "jasmine-reporters": "^2.2.0",
     "jasmine-spec-reporter": "^2.7.0",
+    "node-ssh": "^3.1.0",
+    "node-ssh-exec": "^0.1.1",
+    "path": "^0.12.7",
     "protractor": "^4.0.11",
     "protractor-console": "^2.0.1",
-    "protractor-jasmine2-html-reporter": "^0.0.6"
+    "protractor-jasmine2-html-reporter": "^0.0.6",
+    "ssh2": "^0.5.4"
   }
 }
