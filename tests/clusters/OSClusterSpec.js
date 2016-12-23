@@ -48,7 +48,7 @@ describe('Testing a new OpenStack', function () {
 
         it('the (Post-install) script should be executed on nodes', function (done) {
             jasmine.DEFAULT_TIMEOUT_INTERVAL = 10 * 10000;
-            basePage.getClusterPublicIPs(clusterOSName).then(function (ips) {
+            basePage.getClusterPrivateIPs(clusterOSName).then(function (ips) {
                 ips.forEach(function (ip, index) {
                     console.log('SSH Username: ' + process.env.CLOUDBREAK_CLOUDBREAK_SSH_USER);
                     console.log('SSH Key Path: ' + process.env.SSH_KEY_PATH);

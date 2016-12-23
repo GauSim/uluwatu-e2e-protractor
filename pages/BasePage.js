@@ -144,6 +144,14 @@ BasePage.prototype  = Object.create({}, {
 
         return clusterModule.getAllPublicIPs();
     }},
+    getClusterPrivateIPs:                       { value: function (name)  {
+        var clusterModule = new ClusterModule();
+
+        this.openClusterPanel(name);
+        this.openClusterDetails();
+
+        return clusterModule.getAllPrivateIPs();
+    }},
     stopCluster:                                { value: function (name)  {
         var clusterModule = new ClusterModule();
 

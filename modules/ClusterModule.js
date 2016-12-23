@@ -83,14 +83,11 @@ ClusterModule.prototype = Object.create({}, {
         });
     }},
     selectRecipe:                         { value: function (name) {
-        // https://hortonworks.jira.com/browse/BUG-69942
-        var nodeRecipes = element.all(by.css('input[name="' + name + '"]'));
-
-        element.all(by.css('input[name="' + name + '"]')).each(function(elem, index) {
-            elem.getText().then(function(text) {
-                console.log('Select the ' + text + ' ' + index + ' recipe.');
+        element.all(by.css('input[name="' + name + '"]')).each(function(recipeCheckBox, index) {
+            recipeCheckBox.getAttribute('name').then(function(recipeName) {
+                console.log('Select the ' + recipeName + ' ' + index + ' recipe.');
             });
-            return elem.click();
+            return recipeCheckBox.click();
         });
     }},
     clickReviewAndLaunch:              { value: function () {
@@ -577,7 +574,7 @@ ClusterModule.prototype = Object.create({}, {
             });
         });
     }},
-    getPublicIPs:                    { value: function () {
+    getPublicIPs:                      { value: function () {
         var EC = protractor.ExpectedConditions;
         var publicIP = element.all(by.css('table#metadataTable tr>td[data-title="\'public IP\'"]')).first();
 
@@ -593,9 +590,29 @@ ClusterModule.prototype = Object.create({}, {
             });
         });
     }},
-    getAllPublicIPs:                    { value: function () {
+    getPrivateIPs:                     { value: function () {
+        var EC = protractor.ExpectedConditions;
+        var privateIP = element.all(by.css('table#metadataTable tr>td[data-title="\'private IP\'"]')).first();
+
+        return browser.driver.wait(EC.visibilityOf(privateIP), 10000, 'Private IPs are NOT visible!').then(function() {
+            return privateIP.isDisplayed().then(function (displayed) {
+                return displayed;
+            });
+        }).then(function() {
+            return element.all(by.css('table#metadataTable tr>td[data-title="\'private IP\'"]')).map(function (privateIPs) {
+                return privateIPs.getText().then(function (text) {
+                    return text;
+                });
+            });
+        });
+    }},
+    getAllPublicIPs:                   { value: function () {
         this.expandNodes();
         return this.getPublicIPs();
+    }},
+    getAllPrivateIPs:                  { value: function () {
+        this.expandNodes();
+        return this.getPrivateIPs();
     }},
     createNewAWSCluster:               { value: function (clusterName, regionName, networkName, securityGroup, blueprintName, recipeName) {
         this.typeName(clusterName);
