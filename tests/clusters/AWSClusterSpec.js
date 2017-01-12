@@ -3,6 +3,7 @@
 var BasePage = require('../../pages/BasePage.js');
 var DashboardPage = require('../../pages/DashboardPage.js');
 var originalJasmineTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
+var originalNumberOfNodes;
 
 var fs = require('fs');
 var exec = require('node-ssh-exec');
@@ -112,19 +113,35 @@ describe('Testing a new AWS', function () {
             }, 40 * 60000).result;
 
             testResult = it('the Cluster should be up scaled', function (done) {
+                basePage.getNumberOfNodes(clusterAWSName).then(function (value) {
+                    originalNumberOfNodes = value;
+                });
                 expect(basePage.upScaleCluster(clusterAWSName, hostGroup, nodeScalingUp)).toBeTruthy();
 
                 jasmine.DEFAULT_TIMEOUT_INTERVAL = 60 * 60000;
                 expect(basePage.isClusterUpScaled()).toBeTruthy();
                 done();
             }, 40 * 60000).result;
+            testResult = it('the Number Of Nodes should be increased', function () {
+                basePage.getNumberOfNodes(clusterAWSName).then(function (value) {
+                    expect(value).toBeGreaterThan(originalNumberOfNodes);
+                });
+            }).result;
             testResult = it('the Cluster should be down scaled', function (done) {
+                basePage.getNumberOfNodes(clusterAWSName).then(function (value) {
+                    originalNumberOfNodes = value;
+                });
                 expect(basePage.downScaleCluster(clusterAWSName, hostGroup, nodeScalingDown)).toBeTruthy();
 
                 jasmine.DEFAULT_TIMEOUT_INTERVAL = 60 * 60000;
                 expect(basePage.isClusterDownScaled()).toBeTruthy();
                 done();
             }, 40 * 60000).result;
+            testResult = it('the Number Of Nodes should be decreased', function () {
+                basePage.getNumberOfNodes(clusterAWSName).then(function (value) {
+                    expect(value).toBeLessThan(originalNumberOfNodes);
+                });
+            }).result;
 
             it('the Cluster should be terminated', function (done) {
                 expect(basePage.terminateCluster(clusterAWSName)).toBeTruthy();

@@ -606,6 +606,20 @@ ClusterModule.prototype = Object.create({}, {
             });
         });
     }},
+    getNodeCountValue:                 { value: function () {
+        var EC = protractor.ExpectedConditions;
+        var numberOfNodes = element(by.css('p#sl_nodeCount'));
+
+        return browser.driver.wait(EC.visibilityOf(numberOfNodes), 10000, 'Number Of Nodes is NOT visible!').then(function() {
+            return numberOfNodes.isDisplayed().then(function (displayed) {
+                return displayed;
+            });
+        }).then(function() {
+            return numberOfNodes.getText().then(function (text) {
+                return text;
+            });
+        });
+    }},
     getAllPublicIPs:                   { value: function () {
         this.expandNodes();
         return this.getPublicIPs();
