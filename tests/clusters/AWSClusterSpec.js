@@ -16,7 +16,7 @@ describe('Testing a new AWS', function () {
     var clusterAWSName = 'autotest-aws-cls-' + browser.params.nameTag;
     var regionAWSName = 'EU (Ireland)';
     var networkAWSName = 'default-aws-network';
-    var securityGroup = 'all-services-port';
+    var securityGroup = 'UNSECURE-aws-all-services-open';
     var recipeName = 'autotest-sample-' + browser.params.nameTag + '-pre';
 
     describe('cluster creation with recipe where', function () {

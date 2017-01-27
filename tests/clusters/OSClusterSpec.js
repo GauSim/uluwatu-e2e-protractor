@@ -17,7 +17,7 @@ describe('Testing a new OpenStack', function () {
     var regionOSName = 'RegionOne';
     var availabilityZoneName = 'nova';
     var networkOSName = 'autotest-eng-net-' + browser.params.nameTag;
-    var securityGroup = 'all-services-port';
+    var securityGroup = 'UNSECURE-openstack-all-services-open';
     var recipeName = 'autotest-sample-' + browser.params.nameTag + '-post';
 
     describe('cluster creation with recipe where', function () {
