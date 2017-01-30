@@ -1,6 +1,4 @@
 'use strict';
-var WaitForUtils = require('../utils/WaitForUtils.js');
-
 var LoggedOutPage = function () {
     browser.waitForAngular();
 
@@ -16,20 +14,13 @@ LoggedOutPage.prototype  = Object.create({}, {
     passwordBox:                  {   get:    function() { return element(by.css('input#password'));              }},
     logInButton:                  {   get:    function() { return element(by.css('button#login-btn'));            }},
 
-    refreshPage:                          {   value:  function() {
-        var waitForUtils = new WaitForUtils();
-
-        browser.refresh();
-        browser.waitForAngular();
-
-        return waitForUtils.waitForOverlay();
-    }},
     reLogIn:                      {   value:  function(loginUser, loginPassword) {
         var email = this.emailBox;
         var password = this.passwordBox;
         var currentURL;
 
-        this.refreshPage();
+        browser.refresh();
+        browser.waitForAngular();
 
         email.clear().then(function() {
             return email.sendKeys(loginUser);
@@ -38,18 +29,21 @@ LoggedOutPage.prototype  = Object.create({}, {
             return password.sendKeys(loginPassword);
         });
         return this.logInButton.click().then(function() {
-            browser.ignoreSynchronization = true;
-
             return browser.driver.wait(function () {
                 return browser.driver.getCurrentUrl().then(function (url) {
                     currentURL = url;
-                    return /dashboard/g.test(url) || /confirm/g.test(url) || /#/g.test(url);
+                    return /dashboard/g.test(url) || /confirm/g.test(url) || /#/g.test(url) || /sl/g.test(url);
                 });
             }, 60000).then(function() {
                 console.log(currentURL);
                 var pageName = currentURL.split("/").pop();
 
                 switch (pageName) {
+                    case '':
+                        browser.driver.findElement(by.css('div#msgDialog[style="display: block;"]')).then(function() {
+                            return true;
+                        });
+                        break;
                     case 'dashboard':
                         browser.driver.findElement(by.id('login-btn')).click().then(function() {
                             return browser.driver.wait(function() {
@@ -58,7 +52,6 @@ LoggedOutPage.prototype  = Object.create({}, {
                                 });
                             }, 20000);
                         });
-                        browser.ignoreSynchronization = false;
                         break;
                     case 'confirm':
                         browser.driver.findElement(by.id('confirm-yes')).click().then(function() {
@@ -68,7 +61,6 @@ LoggedOutPage.prototype  = Object.create({}, {
                                 });
                             }, 20000);
                         });
-                        browser.ignoreSynchronization = false;
                         break;
                     default:
                         return browser.driver.wait(function() {
@@ -76,7 +68,6 @@ LoggedOutPage.prototype  = Object.create({}, {
                                 return /#/.test(url);
                             });
                         }, 20000);
-                        browser.ignoreSynchronization = false;
                         break;
                 }
             });
