@@ -168,7 +168,7 @@ exports.config = {
                 });
             }, 60000).then(function() {
                 console.log(currentURL);
-                var pageName = currentURL.split("/").pop();
+                var pageName = currentURL.split("sl/").pop();
 
                 switch (pageName) {
                     case 'dashboard':
