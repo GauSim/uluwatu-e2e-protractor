@@ -38,6 +38,8 @@ LoggedOutPage.prototype  = Object.create({}, {
             return password.sendKeys(loginPassword);
         });
         return this.logInButton.click().then(function() {
+            browser.ignoreSynchronization = true;
+
             return browser.driver.wait(function () {
                 return browser.driver.getCurrentUrl().then(function (url) {
                     currentURL = url;
@@ -56,6 +58,7 @@ LoggedOutPage.prototype  = Object.create({}, {
                                 });
                             }, 20000);
                         });
+                        browser.ignoreSynchronization = false;
                         break;
                     case 'confirm':
                         browser.driver.findElement(by.id('confirm-yes')).click().then(function() {
@@ -65,6 +68,7 @@ LoggedOutPage.prototype  = Object.create({}, {
                                 });
                             }, 20000);
                         });
+                        browser.ignoreSynchronization = false;
                         break;
                     default:
                         return browser.driver.wait(function() {
@@ -72,6 +76,7 @@ LoggedOutPage.prototype  = Object.create({}, {
                                 return /#/.test(url);
                             });
                         }, 20000);
+                        browser.ignoreSynchronization = false;
                         break;
                 }
             });
