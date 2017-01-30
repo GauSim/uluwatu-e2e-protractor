@@ -16,19 +16,13 @@ LoggedOutPage.prototype  = Object.create({}, {
     passwordBox:                  {   get:    function() { return element(by.css('input#password'));              }},
     logInButton:                  {   get:    function() { return element(by.css('button#login-btn'));            }},
 
-    refreshPage:                          {   value:  function() {
-        var waitForUtils = new WaitForUtils();
-
-        browser.refresh();
-        browser.waitForAngular();
-
-        return waitForUtils.waitForOverlay();
-    }},
     reLogIn:                      {   value:  function(loginUser, loginPassword) {
         var email = this.emailBox;
         var password = this.passwordBox;
+        var currentURL;
 
-        this.refreshPage();
+        browser.refresh();
+        browser.waitForAngular();
 
         email.clear().then(function() {
             return email.sendKeys(loginUser);
@@ -39,9 +33,46 @@ LoggedOutPage.prototype  = Object.create({}, {
         return this.logInButton.click().then(function() {
             return browser.driver.wait(function () {
                 return browser.driver.getCurrentUrl().then(function (url) {
-                    return /sl/g.test(url) || /#/g.test(url);
+                    currentURL = url;
+                    return /dashboard/g.test(url) || /confirm/g.test(url) || /#/g.test(url) || /sl/g.test(url);
                 });
-            }, 20000);
+            }, 60000).then(function() {
+                console.log(currentURL);
+                var pageName = currentURL.split("/").pop();
+
+                switch (pageName) {
+                    case '':
+                        browser.driver.findElement(by.css('div#msgDialog[style="display: block;"]')).then(function() {
+                            return true;
+                        });
+                        break;
+                    case 'dashboard':
+                        browser.driver.findElement(by.id('login-btn')).click().then(function() {
+                            return browser.driver.wait(function() {
+                                return browser.driver.getCurrentUrl().then(function(url) {
+                                    return /#/.test(url);
+                                });
+                            }, 20000);
+                        });
+                        break;
+                    case 'confirm':
+                        browser.driver.findElement(by.id('confirm-yes')).click().then(function() {
+                            return browser.driver.wait(function() {
+                                return browser.driver.getCurrentUrl().then(function(url) {
+                                    return /#/.test(url);
+                                });
+                            }, 20000);
+                        });
+                        break;
+                    default:
+                        return browser.driver.wait(function() {
+                            return browser.driver.getCurrentUrl().then(function(url) {
+                                return /#/.test(url);
+                            });
+                        }, 20000);
+                        break;
+                }
+            });
         });
     }},
     isUserIncorrectWarning:       {   value:  function() {
