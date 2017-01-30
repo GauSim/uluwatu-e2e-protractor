@@ -1,4 +1,5 @@
 'use strict';
+var WaitForUtils = require('../utils/WaitForUtils.js');
 
 var LoggedOutPage = function () {
     browser.waitForAngular();
@@ -15,9 +16,19 @@ LoggedOutPage.prototype  = Object.create({}, {
     passwordBox:                  {   get:    function() { return element(by.css('input#password'));              }},
     logInButton:                  {   get:    function() { return element(by.css('button#login-btn'));            }},
 
+    refreshPage:                          {   value:  function() {
+        var waitForUtils = new WaitForUtils();
+
+        browser.refresh();
+        browser.waitForAngular();
+
+        return waitForUtils.waitForOverlay();
+    }},
     reLogIn:                      {   value:  function(loginUser, loginPassword) {
         var email = this.emailBox;
         var password = this.passwordBox;
+
+        this.refreshPage();
 
         email.clear().then(function() {
             return email.sendKeys(loginUser);
