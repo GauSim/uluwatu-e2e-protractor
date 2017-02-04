@@ -18,10 +18,12 @@ exports.config = {
         package: 'protractor-console',
         logLevels: ['severe']
     }],
-    // The address of the running selenium server. In case of direct connection this is not needed.
-    // seleniumAddress: 'http://localhost:4444/wd/hub',
+    // The address of the running Selenium Grid Hub (http://localhost:4444/wd/hub).
+    // In case of Mac OSX the 'localhost' should be the running Docker Server IP (http://192.168.64.5:4444/wd/hub).
+    // In case of direct connection this is not needed.
+    seleniumAddress: 'http://172.22.69.96:4444/wd/hub',
     // Protractor starts directly Chrome or Firefox. Do not need to start the WebDriver. This could be very useful in development pahse.
-    directConnect: true,
+    directConnect: (process.env.ISPARALLEL === "false"),
     // Capabilities to be passed to the WebDriverJS instance.
     capabilities: {
         'browserName': (process.env.BROWSER || 'firefox'),
@@ -31,6 +33,8 @@ exports.config = {
                '--disable-web-security'
             ]
         },
+        shardTestFiles: (process.env.ISPARALLEL === "true"),
+        maxInstances: (process.env.PARALLELBROWSERS || 1),
         // this takes seconds
         idleTimeout: 120,
         locationContextEnabled: true,

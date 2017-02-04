@@ -1,0 +1,36 @@
+version: "2"
+
+services:
+  hub:
+    image: elgalu/selenium
+    ports:
+      - 4444:4444
+      - 40650-40700:40650-40700
+    environment:
+      - SELENIUM_HUB_PORT=4444
+      - VNC_FROM_PORT=40650
+      - VNC_TO_PORT=40700
+      - PICK_ALL_RANDOM_PORTS=true
+      - GRID=true
+      - CHROME=false
+      - FIREFOX=false
+      - RC_CHROME=false
+      - RC_FIREFOX=false
+  firefox:
+    image: elgalu/selenium
+    network_mode: "service:hub"
+    mem_limit: 2g
+    memswap_limit: 4g
+    environment:
+      - SELENIUM_HUB_PORT=4444
+      - VNC_FROM_PORT=40650
+      - VNC_TO_PORT=40700
+      - SCREEN_WIDTH=1300
+      - SCREEN_HEIGHT=999
+      - PICK_ALL_RANDOM_PORTS=true
+      - VIDEO=false
+      - GRID=false
+      - CHROME=false
+      - FIREFOX=true
+      - RC_CHROME=false
+      - RC_FIREFOX=false

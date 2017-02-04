@@ -2,6 +2,14 @@
 # -e  Exit immediately if a command exits with a non-zero status.
 # -x  Print commands and their arguments as they are executed.
 
+: ${BASE_URL:? required}
+: ${HOST:? required}
+: ${MASTER_SSH_KEY:? required}
+: ${CLOUDBREAK_CENTOS_SSH_USER:? required}
+: ${ENVIRONMENT:? required}
+: ${TEST_SUITE:? required}
+: ${ENVFILE:=./utils/testenv}
+
 export NOWDATE=$(ssh -o StrictHostKeyChecking=no -i $MASTER_SSH_KEY $CLOUDBREAK_CENTOS_SSH_USER@$HOST date +%Y-%m-%d"T"%H:%M:%S)
 
 export TESTCONF=/protractor/project/e2e.conf.js
