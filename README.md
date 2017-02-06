@@ -149,11 +149,11 @@ The Grid is building with the help of [Docker Compose](https://docs.docker.com/c
 
 The project's [Makefile](Makefile) contains several [rules](https://www.gnu.org/software/make/manual/make.html#Rules) what you can use with your CI jobs. For example:
 ```
-cloudbreak-run-ui-it-test:
-				./scripts/cloudbreak-ui-integration-test.sh
+run-gui-tests:
+				./scripts/uluwatu-test.sh
 ```
-- `cloudbreak-run-ui-it-test` the target of the rule
-- `./scripts/cloudbreak-ui-integration-test.sh` the recipe of the rule
+- `run-gui-tests` the target of the rule
+- `./scripts/uluwatu-test.sh` the recipe of the rule
 
 > As you can see here the project contains some predefined [bash scripts](scripts) to automate Grid2 launch and test environment setup before tests execution in one round with the help of make rules.
 
