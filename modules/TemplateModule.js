@@ -139,6 +139,8 @@ TemplateModule.prototype = Object.create({}, {
         }
     }},
     setAttachedVolume:                 { value: function (provider, volume) {
+        var EC = protractor.ExpectedConditions;
+
         switch (provider) {
             case 'AWS':
                 this.awsattachedBox.clear();
@@ -153,8 +155,12 @@ TemplateModule.prototype = Object.create({}, {
                 return this.gcpattachedBox.sendKeys(volume);
                 break;
             case 'OpenStack':
-                this.openstackattachedBox.clear();
-                return this.openstackattachedBox.sendKeys(volume);
+                var attachedVolumeBox = this.openstackattachedBox;
+                return browser.driver.wait(EC.elementToBeClickable(attachedVolumeBox), 5000, 'OpenStack Attached Volume inputs are NOT visible').then(function() {
+                    return attachedVolumeBox.clear().then(function() {
+                        return attachedVolumeBox.sendKeys(volume);
+                    });
+                });
                 break;
             default:
                 return this.throwError('Provider is not valid!');
@@ -162,6 +168,8 @@ TemplateModule.prototype = Object.create({}, {
         }
     }},
     setVolumeSize:                     { value: function (provider, size) {
+        var EC = protractor.ExpectedConditions;
+
         switch (provider) {
             case 'AWS':
                 this.awssizeBox.clear();
@@ -176,8 +184,13 @@ TemplateModule.prototype = Object.create({}, {
                 return this.gcpsizeBox.sendKeys(size);
                 break;
             case 'OpenStack':
-                this.openstacksizeBox.clear();
-                return this.openstacksizeBox.sendKeys(size);
+                var attachedVolumeSizeBox = this.openstacksizeBox;
+
+                return browser.driver.wait(EC.elementToBeClickable(attachedVolumeSizeBox), 5000, 'OpenStack Attached Volume Size inputs are NOT visible').then(function() {
+                    return attachedVolumeSizeBox.clear().then(function() {
+                        return attachedVolumeSizeBox.sendKeys(size);
+                    });
+                });
                 break;
             default:
                 return this.throwError('Provider is not valid!');
@@ -353,7 +366,9 @@ TemplateModule.prototype = Object.create({}, {
         this.typeDescription('OpenStack', description);
         this.setInstanceType('OpenStack', instanceType);
         this.setAttachedVolume('OpenStack', attachedVolumes);
-        this.setVolumeSize('OpenStack', volumeSize);
+        if (attachedVolumes != 0) {
+            this.setVolumeSize('OpenStack', volumeSize);
+        }
         this.clickCreateTemplate('OpenStack', name);
         browser.waitForAngular();
     }},

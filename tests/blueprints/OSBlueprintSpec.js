@@ -15,7 +15,7 @@ describe('Testing OpenStack blueprint creation', function () {
         beforeAll(function () {
             console.log('Custom blueprint creation test setup has started!');
             dashboardPage.deleteBlueprint('autotest-scaling-');
-            dashboardPage.getBadgeValue(3).then(function (value) {
+            dashboardPage.getBadgeValue(4).then(function (value) {
                 defaultBlueprints = value;
             });
         });
@@ -26,7 +26,7 @@ describe('Testing OpenStack blueprint creation', function () {
 
         it('Create new custom blueprint', function () {
             dashboardPage.createBlueprint(newOSName, newDescription, newOSUrl);
-            dashboardPage.getBadgeValue(3).then(function (value) {
+            dashboardPage.getBadgeValue(4).then(function (value) {
                 expect(value).toBeGreaterThan(defaultBlueprints);
             });
         });

@@ -48,7 +48,7 @@ describe('Testing Cloudbreak login', function () {
         });
 
         it('should see default blueprints', function () {
-            dashboardPage.getBadgeValue(3).then(function (value) {
+            dashboardPage.getBadgeValue(4).then(function (value) {
                 expect(value).toBeGreaterThan(2);
             });
         });

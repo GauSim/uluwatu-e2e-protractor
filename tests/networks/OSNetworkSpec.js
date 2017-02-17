@@ -16,7 +16,7 @@ describe('Testing OpenStack network creation', function () {
         beforeAll(function () {
             console.log('Network creation test setup has started!');
             dashboardPage.deleteNetwork('autotest-eng-net-');
-            dashboardPage.getBadgeValue(1).then(function (value) {
+            dashboardPage.getBadgeValue(2).then(function (value) {
                 defaultNetworks = value;
             });
         });
@@ -27,7 +27,7 @@ describe('Testing OpenStack network creation', function () {
 
         it('Create new OpenStack network', function () {
             dashboardPage.createOSNetwork(newName, newDescription, newVirtualNetworkID, newSubnetID);
-            dashboardPage.getBadgeValue(1).then(function (value) {
+            dashboardPage.getBadgeValue(2).then(function (value) {
                 expect(value).toBeGreaterThan(defaultNetworks);
             });
         });

@@ -7,8 +7,8 @@ describe('Testing OpenStack template creation', function () {
     var newOSName = 'autotest-eng-tmp-' + browser.params.nameTag;
     var newDescription = 'autotest';
     var newOSInstanceType = 'm1.medium';
-    var newAttachedVolumes = '0';
-    var newOSVolumeSize = '10';
+    var newAttachedVolumes = 0;
+    var newOSVolumeSize = 10;
 
     describe('with ' + newOSName + ' template', function () {
         dashboardPage = new DashboardPage();

@@ -20,14 +20,14 @@ describe('Testing OpenStack credential creation', function () {
         beforeAll(function () {
             console.log('OpenStack credential creation test setup has started!');
             dashboardPage.deleteCredential('autotest-eng-cred-');
-            dashboardPage.getBadgeValue(4).then(function (value) {
+            dashboardPage.getBadgeValue(0).then(function (value) {
                 defaultCredentials = value;
             });
         });
 
         it('Create new OpenStack credential', function () {
             dashboardPage.createOSCredential(newOSName, newDescription, userOS, passwordOS, tenantOS, endpointOS, apiFacing, sshKey);
-            dashboardPage.getBadgeValue(4).then(function (value) {
+            dashboardPage.getBadgeValue(0).then(function (value) {
                 expect(value).toBeGreaterThan(defaultCredentials);
             });
         });

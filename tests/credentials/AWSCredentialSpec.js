@@ -16,14 +16,14 @@ describe('Testing AWS credential creation', function () {
         beforeAll(function () {
             console.log('AWS credential creation test setup has started!');
             dashboardPage.deleteCredential('autotest-aws-cred-');
-            dashboardPage.getBadgeValue(4).then(function (value) {
+            dashboardPage.getBadgeValue(0).then(function (value) {
                 defaultCredentials = value;
             });
         });
 
         it('Create new AWS credential', function () {
             dashboardPage.createAWSCredential(newAWSName, newDescription, iamRole, sshKey);
-            dashboardPage.getBadgeValue(4).then(function (value) {
+            dashboardPage.getBadgeValue(0).then(function (value) {
                 expect(value).toBeGreaterThan(defaultCredentials);
             });
         });

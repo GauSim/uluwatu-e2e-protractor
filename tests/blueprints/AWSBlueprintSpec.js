@@ -15,7 +15,7 @@ describe('Testing AWS blueprint creation', function () {
         beforeAll(function () {
             console.log('HDP 2.5 blueprint creation test setup has started!');
             dashboardPage.deleteBlueprint('autotest-multi-');
-            dashboardPage.getBadgeValue(3).then(function (value) {
+            dashboardPage.getBadgeValue(4).then(function (value) {
                 defaultBlueprints = value;
             });
         });
@@ -26,7 +26,7 @@ describe('Testing AWS blueprint creation', function () {
 
         it('Create new HDP 2.5 blueprint', function () {
             dashboardPage.createBlueprint(newAWSName, newDescription, newAWSUrl);
-            dashboardPage.getBadgeValue(3).then(function (value) {
+            dashboardPage.getBadgeValue(4).then(function (value) {
                 expect(value).toBeGreaterThan(defaultBlueprints);
             });
         });

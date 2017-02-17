@@ -4,6 +4,7 @@ var BlueprintModule = require('../modules/BlueprintModule.js');
 var TemplateModule = require('../modules/TemplateModule.js');
 var NetworkModule = require('../modules/NetworkModule.js');
 var RecipeModule = require('../modules/RecipeModule.js');
+var WaitForUtils = require('../utils/WaitForUtils');
 
 var DashboardPage = function () {
     browser.waitForAngular();
@@ -22,6 +23,14 @@ DashboardPage.prototype = Object.create({}, {
     credentialsexpandButton:                { get: function ()      { return element(by.css('a#credentials-btn'));            }},
     recipesexpandButton:                    { get: function ()      { return element(by.css('a#recipes-btn'));                }},
 
+    refreshPage:                          {   value:  function() {
+        var waitForUtils = new WaitForUtils();
+
+        browser.refresh();
+        browser.waitForAngular();
+
+        return waitForUtils.waitForOverlay();
+    }},
     expandNetworks:                         { value: function ()    {
         var EC = protractor.ExpectedConditions;
         var expandButton = this.networksexpandButton;
@@ -100,6 +109,8 @@ DashboardPage.prototype = Object.create({}, {
         });
     }},
     getBadgeValue:                          { value: function (idx) {
+        this.refreshPage();
+
         return element.all(by.css('span.badge.pull-right.ng-binding')).get(idx).getText().then(function (value) {
             return parseInt(value.trim(), 10);
         });
