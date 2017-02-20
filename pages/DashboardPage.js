@@ -109,7 +109,7 @@ DashboardPage.prototype = Object.create({}, {
         });
     }},
     getBadgeValue:                          { value: function (idx) {
-        this.refreshPage();
+        browser.waitForAngular();
 
         return element.all(by.css('span.badge.pull-right.ng-binding')).get(idx).getText().then(function (value) {
             return parseInt(value.trim(), 10);

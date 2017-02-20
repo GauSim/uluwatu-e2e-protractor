@@ -29,18 +29,25 @@ WaitForUtils.prototype = Object.create({}, {
     }},
     waitForOverlay:                  {   value:  function() {
         var EC = protractor.ExpectedConditions;
-        var loading = element(by.css('div.block-ui-overlay'));
+        var loading = element(by.cssContainingText('div.block-ui-message-container div.block-ui-message.ng-binding', 'Loading ...'));
+        var overlay = element(by.css('div.block-ui-overlay'));
 
         browser.waitForAngular();
 
         return browser.driver.wait(EC.invisibilityOf(loading), 20000,'Loading is visible!').then(function() {
-            return loading.isDisplayed().then(function(displayed) {
-                return !displayed;
-            }, function(dis_err) {
-                return true;
-            })
+            return browser.driver.wait(EC.invisibilityOf(overlay), 20000,'Overlay is visible!').then(function() {
+                return overlay.isDisplayed().then(function(displayed) {
+                    return !displayed;
+                }, function(dis_err) {
+                    return true;
+                })
+            }, function(wai_err) {
+                console.log(wai_err);
+                return false;
+            });
         }, function(wai_err) {
-            return console.log(wai_err);
+            console.log(wai_err);
+            return false;
         });
     }},
     checkingNotifications:             { value: function (notificationArray, errorMessagesArray)  {
