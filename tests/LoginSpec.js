@@ -8,7 +8,7 @@ describe('Testing Cloudbreak login', function () {
     var dashboardPage;
     var basePage;
     var loggedOutPage;
-    var cloudbreakURL = '/#/';
+    var cloudbreakURL = '/#!/';
 
     describe('with invalid user name', function () {
         var invalidUser = 'teszt.elek@hibasan.com';
