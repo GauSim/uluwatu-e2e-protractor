@@ -74,8 +74,8 @@ WaitForUtils.prototype = Object.create({}, {
         var clusterISRunning = EC.visibilityOf(runningLed);
         var clusterISFailed = EC.visibilityOf(stoppedLed);
 
-        var notifications = ['Creating infrastructure', 'collection finished', 'Bootstrapping infrastructure', 'cluster services', 'Building Ambari', 'cluster built'];
-        var messages = ['The stack creation has NOT started!', 'Metadata collection has NOT finished!', 'Infrastructure bootstrapping has NOT started!', 'Ambari services has NOT started!', 'Ambari building has NOT started!', 'Ambari building has NOT finished!'];
+        var notifications = ['Creating infrastructure', 'collection finished', 'Bootstrapping infrastructure', 'cluster services', 'Building Ambari', 'Execute recipes: master:','cluster built'];
+        var messages = ['The stack creation has NOT started!', 'Metadata collection has NOT finished!', 'Infrastructure bootstrapping has NOT started!', 'Ambari services has NOT started!', 'Ambari building has NOT started!', 'Executing recipes has NOT started!', 'Ambari building has NOT finished!'];
 
         this.checkingNotifications(notifications, messages);
 
