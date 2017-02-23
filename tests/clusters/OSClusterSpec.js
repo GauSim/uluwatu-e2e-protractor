@@ -13,7 +13,7 @@ describe('Testing a new OpenStack', function () {
     var regionOSName = 'RegionOne';
     var availabilityZoneName = 'nova';
     var networkOSName = 'autotest-eng-net-' + browser.params.nameTag;
-    var securityGroup = 'all-services-port';
+    var securityGroup = 'default-openstack-only-ssh-and-ssl';
 
     describe('cluster creation with recipe where', function () {
         basePage = new BasePage();

@@ -11,7 +11,7 @@ describe('Testing a new AWS', function () {
     var blueprintAWSName = 'autotest-multi-' + browser.params.nameTag;
     var clusterAWSName = 'autotest-aws-cls-' + browser.params.nameTag;
     var regionAWSName = 'EU (Ireland)';
-    var networkAWSName = 'default-aws-network';
+    var networkAWSName = 'default-aws-only-ssh-and-ssl';
     var securityGroup = 'all-services-port';
 
     describe('cluster creation with recipe where', function () {
