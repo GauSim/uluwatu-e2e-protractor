@@ -17,7 +17,7 @@ describe('Testing OpenStack template creation', function () {
         beforeAll(function () {
             console.log('Template creation test setup has started!');
             dashboardPage.deleteTemplate('autotest-eng-tmp-');
-            dashboardPage.getBadgeValue(2).then(function (value) {
+            dashboardPage.getBadgeValue(3).then(function (value) {
                 defaultTemplates = value;
             });
         });
@@ -28,7 +28,7 @@ describe('Testing OpenStack template creation', function () {
 
         it('Create new OpenStack template', function () {
             dashboardPage.createOSTemplate(newOSName, newDescription, newOSInstanceType, newAttachedVolumes, newOSVolumeSize);
-            dashboardPage.getBadgeValue(2).then(function (value) {
+            dashboardPage.getBadgeValue(3).then(function (value) {
                 expect(value).toBeGreaterThan(defaultTemplates);
             });
         });
