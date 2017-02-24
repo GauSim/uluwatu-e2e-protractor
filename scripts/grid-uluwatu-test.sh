@@ -85,7 +85,7 @@ echo "Get the runtime Cloudbreak logs!"
 mkdir -pv cloudbreak-logs
 sudo chown -R jenkins .
 
-ssh -o StrictHostKeyChecking=no -i $MASTER_SSH_KEY $CLOUDBREAK_CENTOS_SSH_USER@$HOST docker logs --since=$NOWDATE cbreak_cloudbreak_1 > cloudbreak-logs/cloudbreak-$TARGET_CBD_VERSION.log
+ssh -o StrictHostKeyChecking=no -i $MASTER_SSH_KEY $CLOUDBREAK_CENTOS_SSH_USER@$HOST docker logs --since=$NOWDATE cbreak_cloudbreak_1 > test_log/cloudbreak-$TARGET_CBD_VERSION.log
 
 grid_cleanup
 
