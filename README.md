@@ -36,25 +36,66 @@ Cloudbreak web application functional end-to-end test project.
 You can check all the needed information on the [Page Object Pattern page](/pages/PAGEOBJECTPATTERN.md)
 
 ## Prerequisites
-Every variable from [environment file](utils/testenv) should be present as environment variables with valid values:
+1. Please install followings if these have not installed for you:
+      * NodeJS
+      * Firefox
+      * Google Chrome
+    
+    > You can check Protractor browser compatibility at [Protractor Browser Support](https://github.com/angular/protractor/blob/master/docs/browser-support.md)
 
-> For OS X Yosemite users with IntelliJ IDEA: You should add the environment variables to your
-`bash_profile` to can run tests directly form IDEA with no issues.
-The file should contain the variables for examples:
-```
-export BROWSER=chrome
-launchctl setenv BROWSER $BROWSER
-export BASE_URL=your.url
-launchctl setenv BASE_URL $BASE_URL
-export USERNAME=your@mail.address
-launchctl setenv USERNAME $USERNAME
-export PASSWORD=your.password
-launchctl setenv PASSWORD $PASSWORD
-export SSHKEY=`AAAAB3NzaC1+soon...`
-launchctl setenv SSHKEY $SSHKEY
-...etc.
-```
-> Please do not forget you should reopen your project and restart your IDEA.
+2. Every variable from [environment file](utils/testenv) should be present as environment variables with valid values:
+    
+    > For OS X Yosemite users with IntelliJ IDEA: You should add the environment variables to your
+    `bash_profile` to can run tests directly form IDEA with no issues.
+    The file should contain the variables for examples:
+    
+    ```
+    export BROWSER=chrome
+    launchctl setenv BROWSER $BROWSER
+    export BASE_URL=your.url
+    launchctl setenv BASE_URL $BASE_URL
+    export USERNAME=your@mail.address
+    launchctl setenv USERNAME $USERNAME
+    export PASSWORD=your.password
+    launchctl setenv PASSWORD $PASSWORD
+    export SSHKEY=`AAAAB3NzaC1+soon...`
+    launchctl setenv SSHKEY $SSHKEY
+    ...etc.
+    ```
+
+    > Please do not forget you should reopen your project and restart your IDEA.
+
+    If you do not want to create permanent environment variables on your machine, you can create a source file (for example `environment`) instead:
+    
+    ```
+    export BROWSER=chrome
+    export BASE_URL=your.url
+    export USERNAME=your@mail.address
+    export PASSWORD=your.password
+    export SSHKEY=`AAAAB3NzaC1+soon...`
+    ...etc.
+    export PATH=/<local path of the project>/uluwatu-e2e-protractor/test-e2e/node_modules/protractor/bin:$PATH
+    ```
+    
+    After these you can set all of these in one round with `source` in current shell using:
+        
+    ```
+    chmod +x environment
+    . environment
+    ```
+    
+    or
+    
+    ```
+    chmod +x environment
+    source environment
+    ```
+
+3. [Set your local Node environment up](https://docs.npmjs.com/cli/install) (install every needed packages and tools) for the project. Run:
+ 
+    ```npm install```
+   
+   from the root of the project where the `package.json` is located.
 
 ## Executing Protractor tests
 > If your Protractor test environment has just cloned, you should set up its Node environment first (install every needed packages and tools). The easiest way to get all the needed Node packages in one round to use `npm install`. Please check the [npm-install](https://docs.npmjs.com/cli/install) documentation. Beyond these please check the [Protractor Tutorial](https://angular.github.io/protractor/#/tutorial).
